@@ -3,13 +3,6 @@ pipeline {
         node {
             label 'g1test'
             customWorkspace "/var/www/html/g1/jenkinsDemo"
-            def remote = [:]
-                remote.name = 'g1test'
-                remote.host = '72.arrowhitech.net'
-                remote.port = '22222'
-                remote.user = 'apache'
-                remote.password = '@htadmin2016'
-                remote.allowAnyHosts = true
         }
     }
     stages {
@@ -19,6 +12,13 @@ pipeline {
             }
         }
         stage('Remote SSH') {
+        def remote = [:]
+                    remote.name = 'g1test'
+                    remote.host = '72.arrowhitech.net'
+                    remote.port = '22222'
+                    remote.user = 'apache'
+                    remote.password = '@htadmin2016'
+                    remote.allowAnyHosts = true
           sshCommand remote: remote, command: "rm -rf /generated/code"
           sshCommand remote: remote, command: "php bin/magento setup:upgrade"
           sshCommand remote: remote, command: "php bin/magento setup:static-content:deploy -f"
