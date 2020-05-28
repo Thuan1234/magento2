@@ -3,6 +3,13 @@ pipeline {
         node {
             label 'g1test'
             customWorkspace "/var/www/html/g1/jenkinsDemo"
+            def remote = [:]
+                remote.name = 'g1test'
+                remote.host = '72.arrowhitech.net'
+                remote.port = '22222'
+                remote.user = 'apache'
+                remote.password = '@htadmin2016'
+                remote.allowAnyHosts = true
         }
     }
     stages {
@@ -11,13 +18,6 @@ pipeline {
                 echo "Workspace dir is ${pwd()}"
             }
         }
-        def remote = [:]
-            remote.name = 'aht_g1'
-            remote.host = '72.arrowhitech.net'
-            remote.port = '22222'
-            remote.user = 'apache'
-            remote.password = '@htadmin2016'
-            remote.allowAnyHosts = true
         stage('Remote SSH') {
           sshCommand remote: remote, command: "rm -rf /generated/code"
           sshCommand remote: remote, command: "php bin/magento setup:upgrade"
