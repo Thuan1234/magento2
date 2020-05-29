@@ -15,6 +15,7 @@ pipeline {
                 steps {
                     script {
                         sh "pwd"
+                        sh "rm -rf generated/code/*"
                         sh "php bin/magento setup:upgrade"
                     }
                 }
