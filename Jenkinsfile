@@ -11,13 +11,13 @@ pipeline {
                 echo "Workspace dir is ${pwd()}"
             }
         }
-    }
-    stage('Build Image') {
-        steps {
-            script {
-                sh "echo pwd"
+        stage('Build Image') {
+                steps {
+                    script {
+                        sh "echo pwd"
+                    }
+                }
             }
-        }
     }
     post {
         cleanup {
