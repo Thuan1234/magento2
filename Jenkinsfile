@@ -14,7 +14,7 @@ pipeline {
         stage('Build Image') {
                 steps {
                     script {
-                        sh "echo pwd"
+                        sh "pwd"
                         sh "php bin/magento setup:upgrade"
                     }
                 }
