@@ -14,8 +14,7 @@ pipeline {
         stage('Build Image') {
              steps {
                  script {
-                    sh "su -s /bin/bash apache"
-                    sh '@htadmin2016'
+                    sh "su -s /bin/bash apache <<< @htadmin2016"
                     sh 'whoami'
                  }
              }
