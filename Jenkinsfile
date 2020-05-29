@@ -1,7 +1,7 @@
 pipeline {
     agent {
         node {
-            label 'g1test'
+            label 'g1apache'
             customWorkspace "/var/www/html/g1/jenkinsDemo"
         }
     }
@@ -11,16 +11,6 @@ pipeline {
                 echo "Workspace dir is ${pwd()}"
             }
         }
-        stage('Build Image') {
-                steps {
-                    script {
-                        sh "whoami"
-                        sh "rm -rf generated/code/*"
-                        sh "php bin/magento c:f"
-                        sh "php bin/magento setup:upgrade"
-                    }
-                }
-            }
     }
     post {
         cleanup {
@@ -33,5 +23,17 @@ pipeline {
                 deleteDir()
             }
         }
+    }
+}
+node {
+    def remote = [:]
+        remote.name = 'g1apache'
+        remote.host = '72.arrowhitech.net'
+        remote.port = 22222
+        remote.user = 'apache'
+        remote.password = '@htadmin2016'
+        remote.allowAnyHosts = true
+        stage('Remote SSH') {
+        sshCommand remote: remote, command: "cd /var/www/html/g1/jenkinsDemo;rm -rf /generated/code;php bin/magento setup:upgrade;php bin/magento setup:static-content:deploy -f;php bin/magento cache:clean;php bin/magento cache:flush;php bin/magento indexer:reindex"
     }
 }
