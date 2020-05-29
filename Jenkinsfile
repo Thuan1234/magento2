@@ -14,7 +14,7 @@ pipeline {
         stage('Build Image') {
                 steps {
                     script {
-                        sh "pwd"
+                        sh "whoami"
                         sh "rm -rf generated/code/*"
                         sh "php bin/magento c:f"
                         sh "php bin/magento setup:upgrade"
