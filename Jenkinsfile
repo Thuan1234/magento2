@@ -29,7 +29,7 @@ node {
     def remote = [:]
         remote.name = 'g1test'
         remote.host = '72.arrowhitech.net'
-        remote.port = '22222'
+        remote.port = 22222
         remote.user = 'apache'
         remote.password = '@htadmin2016'
         remote.allowAnyHosts = true
