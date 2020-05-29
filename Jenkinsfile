@@ -12,6 +12,13 @@ pipeline {
             }
         }
     }
+    stage('Build Image') {
+        steps {
+            script {
+                sh "echo pwd"
+            }
+        }
+    }
     post {
         cleanup {
             /* clean up tmp directory */
@@ -23,17 +30,5 @@ pipeline {
                 deleteDir()
             }
         }
-    }
-}
-node {
-    def remote = [:]
-        remote.name = 'g1test'
-        remote.host = '72.arrowhitech.net'
-        remote.port = 22222
-        remote.user = 'aht_g1'
-        remote.password = '@htG1999'
-        remote.allowAnyHosts = true
-        stage('Remote SSH') {
-        sshCommand remote: remote, command: "cd jenkinsDemo/;rm -rf /generated/code;php bin/magento setup:upgrade;php bin/magento setup:static-content:deploy -f;php bin/magento cache:clean;php bin/magento cache:flush;php bin/magento indexer:reindex"
     }
 }
