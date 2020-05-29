@@ -11,6 +11,15 @@ pipeline {
                 echo "Workspace dir is ${pwd()}"
             }
         }
+        stage('Build Image') {
+             steps {
+                 script {
+                    sh "su -s /bin/bash apache"
+                    sh '@htadmin2016'
+                    sh 'whoami'
+                 }
+             }
+        }
     }
     post {
         cleanup {
@@ -23,17 +32,5 @@ pipeline {
                 deleteDir()
             }
         }
-    }
-}
-node {
-    def remote = [:]
-        remote.name = 'g1apache'
-        remote.host = '72.arrowhitech.net'
-        remote.port = 22222
-        remote.user = 'apache'
-        remote.password = '@htadmin2016'
-        remote.allowAnyHosts = true
-        stage('Remote SSH') {
-        sshCommand remote: remote, command: "cd /var/www/html/g1/jenkinsDemo"
     }
 }
