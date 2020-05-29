@@ -34,6 +34,6 @@ node {
         remote.password = '@htadmin2016'
         remote.allowAnyHosts = true
         stage('Remote SSH') {
-        sshCommand remote: remote, command: "cd /var/www/html/g1/jenkinsDemo;rm -rf /generated/code;php bin/magento setup:upgrade;php bin/magento setup:static-content:deploy -f;php bin/magento cache:clean;php bin/magento cache:flush;php bin/magento indexer:reindex"
+        sshCommand remote: remote, command: "cd /var/www/html/g1/jenkinsDemo"
     }
 }
