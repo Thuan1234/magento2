@@ -15,7 +15,7 @@ pipeline {
                 steps {
                     script {
                         sh "echo pwd"
-                        sh "${phpBin} bin/magento setup:upgrade"
+                        sh "php bin/magento setup:upgrade"
                     }
                 }
             }
