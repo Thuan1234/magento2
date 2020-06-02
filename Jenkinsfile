@@ -1,7 +1,7 @@
 pipeline {
     agent {
         node {
-            label 'g1apache'
+            label 'demo_slave'
             customWorkspace "/var/www/html/g1/jenkinsDemo"
         }
     }
@@ -11,11 +11,12 @@ pipeline {
                 echo "Workspace dir is ${pwd()}"
             }
         }
-        stage('Build Image') {
+        stage('Deployment') {
              steps {
                  script {
-                    sh "su -s /bin/bash apache <<< @htadmin2016"
-                    sh 'whoami'
+                    sh "php bin/magento setup:upgrade"
+                    sh "php bin/magento setup:static-content:deploy -f"
+                    sh "php bin/magento c:f"
                  }
              }
         }
